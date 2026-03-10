@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Tenet Security</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: #612303;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100dvh;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stars-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: var(--star-opacity); }
+      50% { opacity: 0.1; }
+    }
+
+    .bg-swirl {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-swirl img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.7);
+      border: 2px solid #ffffff;
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      width: 100%;
+      max-width: 400px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      width: 142px;
+      height: 79px;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .text-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #340200;
+      text-align: center;
+      line-height: normal;
+      white-space: nowrap;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      font-weight: 400;
+      color: #340200;
+      text-align: center;
+      line-height: normal;
+      max-width: 239px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      border-radius: 38px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      line-height: normal;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      opacity: 1;
+    }
+
+    .btn-primary {
+      background-color: #131313;
+      color: #ffffff;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #E66116;
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: #000000;
+      border: 1px solid #000000;
+    }
+
+    .btn-secondary:hover {
+      background-color: #E66116;
+      color: #ffffff;
+      border-color: #E66116;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars-canvas" id="stars"></div>
+
+  <div class="bg-swirl">
+    <img src="assets/background.svg" alt="">
+  </div>
+
+  <div class="card">
+    <div class="logo">
+      <img src="assets/logo.svg" alt="Tenet Security Logo">
+    </div>
+
+    <div class="text-group">
+      <h1 class="title">Tenet Security</h1>
+      <p class="subtitle">Your Agents Have Real Access. Give Them Real Defense.</p>
+    </div>
+
+    <div class="buttons">
+      <a href="https://www.tenetsecurity.ai/" target="_blank" class="btn btn-primary">Our Website</a>
+      <a href="https://docsend.com/view/7pw25eexxq7ng3iv" target="_blank" class="btn btn-secondary">One Pager</a>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const canvas = document.getElementById('stars');
+      const count = 120;
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        const size = Math.random() * 1.5 + 0.5;
+        const opacity = Math.random() * 0.7 + 0.15;
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        const delay = Math.random() * 6;
+        const duration = Math.random() * 4 + 3;
+        star.style.cssText = `
+          position:absolute;
+          left:${x}%;
+          top:${y}%;
+          width:${size}px;
+          height:${size}px;
+          border-radius:50%;
+          background:white;
+          --star-opacity:${opacity};
+          opacity:${opacity};
+          animation:twinkle ${duration}s ${delay}s ease-in-out infinite;
+        `;
+        canvas.appendChild(star);
+      }
+    })();
+  </script>
+</body>
+</html>
